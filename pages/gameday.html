@@ -1,6 +1,69 @@
-<section class="stub"><div class="wrap">
-  <p class="eyebrow">GameDay</p>
-  <h1>GameDay_stats</h1>
-  <p>A fantasy football stats site built on nflverse data. Live at <a href="https://thegameday.zone">thegameday.zone</a>.</p>
-  <span class="badge">Coming soon</span>
+<section class="show-hero"><div class="wrap">
+  <img class="app-icon" src="/assets/showcase/gameday/app-icon.png" alt="GameDay_stats app icon" width="112" height="112">
+  <div class="text">
+    <p class="eyebrow">GameDay</p>
+    <h1>GameDay_stats</h1>
+    <p>My fantasy football war room: a waiver board, league and NFL matchups, every nflverse stat, coach press conference summaries and weekly write-ups. Built with Claude and updated automatically.</p>
+    <div class="btn-row">
+      <a class="btn primary" href="https://thegameday.zone">Visit thegameday.zone</a>
+      <a class="btn" href="https://github.com/william-arana/NFL_stats">View the code</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="shaded"><div class="wrap">
+  <h2 class="section-title">Brand kit</h2>
+  <p class="lead">The GD_S icon, the share card and the favicon. The name moved from NFL_stats to GameDay_stats so it can cover MLB and FPL later.</p>
+  <div class="brand-kit">
+    <div class="tile">
+      <h3>Mobile app icon</h3>
+      <p>The GD_S mark, with the blue D tucked behind the G.</p>
+      <div class="icon-demo">
+        <div><img src="/assets/showcase/gameday/app-icon.png" alt="GameDay_stats icon, large" width="96" height="96"><span>Home screen</span></div>
+        <div><img src="/assets/showcase/gameday/app-icon.png" alt="GameDay_stats icon, small" width="48" height="48"><span>Spotlight</span></div>
+      </div>
+    </div>
+    <div class="tile og">
+      <h3>Social preview (OG image)</h3>
+      <p>The card that shows when a link to the site gets shared. 1200 &times; 630.</p>
+      <img src="/assets/showcase/gameday/og.jpg" alt="GameDay_stats social preview image" width="1200" height="630" loading="lazy">
+    </div>
+    <div class="tile">
+      <h3>Favicon</h3>
+      <p>The browser tab icon.</p>
+      <div class="tab-mock"><img src="/assets/showcase/gameday/favicon-32.png" alt="">GameDay_stats</div>
+      <div class="fav-sizes">
+        <div><img src="/assets/showcase/gameday/favicon-32.png" alt="Favicon at 16px" width="16" height="16"><span>16</span></div>
+        <div><img src="/assets/showcase/gameday/favicon-32.png" alt="Favicon at 32px" width="32" height="32"><span>32</span></div>
+        <div><img src="/assets/showcase/gameday/favicon-64.png" alt="Favicon at 64px" width="64" height="64"><span>64</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section"><div class="wrap">
+  <h2 class="section-title">What it does</h2>
+  <div class="features">
+    <div class="feature"><h3>Waiver board</h3><p>Ranks pickups for my Sleeper leagues by expected points, usage trends and matchups.</p></div>
+    <div class="feature"><h3>Lab</h3><p>Query every nflverse stat in the browser: pivots, a DuckDB SQL editor, charts and CSV export.</p></div>
+    <div class="feature"><h3>Pressers</h3><p>Head coach press conferences pulled daily and summarized with Claude, so injury and role news shows up in one place.</p></div>
+    <div class="feature"><h3>The Rundown</h3><p>Weekly recap and preview articles for my league, written by Claude from the week's real stats.</p></div>
+    <div class="feature"><h3>Trade and matchups</h3><p>League and NFL matchups side by side, plus a trade view for comparing players.</p></div>
+    <div class="feature"><h3>Stat guide</h3><p>A plain-English guide to the roughly 1,500 nflverse stat columns.</p></div>
+  </div>
+</div></section>
+
+<section class="shaded"><div class="wrap">
+  <h2 class="section-title">Getting Yahoo API access approved</h2>
+  <div class="callout">
+    <p style="margin:0">Sleeper has an open API. Yahoo doesn't. To bring Yahoo leagues into the site, I had to apply to Yahoo for Fantasy Sports API access and get the use case approved.</p>
+    <ol class="timeline">
+      <li><b>Applied (Oct 2026)</b><span>Requested Fantasy Sports API access so friends in Yahoo leagues could use the site with their own leagues.</span></li>
+      <li><b>Approved for personal use (Nov 2026)</b><span>Yahoo approved the app and I signed their API agreement. I paused Yahoo data on the public site to stay inside the terms.</span></li>
+      <li><b>Asked for more (Nov 2026)</b><span>Emailed Yahoo to ask whether friends could connect their leagues and whether full league rosters were allowed.</span></li>
+      <li><b>Confirmed (Nov 24, 2026)</b><span>Yahoo confirmed my access under the same agreement.</span></li>
+      <li><b>Built the private Yahoo page</b><span>A login-only "My Yahoo team" page running on a Cloudflare Worker behind Cloudflare Access. Yahoo data stays out of every AI feature on the site.</span></li>
+    </ol>
+  </div>
+  <p class="note">Not affiliated with or endorsed by the NFL, Sleeper, Yahoo or ESPN. League data is read only.</p>
 </div></section>
