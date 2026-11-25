@@ -52,7 +52,25 @@ def header(active):
         '<header class="site-header"><div class="wrap">\n'
         '  <a class="brand" href="/"><span>William Arana&#39;s</span><em>Projects</em></a>\n'
         f'  <nav class="nav" aria-label="Main">{"".join(links)}</nav>\n'
-        '  <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Dark mode</button>\n'
+        '  <button id="settings-cog" class="cog" type="button" aria-label="Settings" aria-expanded="false" aria-controls="settings-panel" title="Settings">'
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3"/>'
+        '<path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>\n'
+        '  <div class="settings-panel" id="settings-panel" hidden>\n'
+        '    <p class="settings-title">Settings</p>\n'
+        '    <fieldset><legend>Appearance</legend>\n'
+        '      <div class="seg"><label><input type="radio" name="site-theme" value="light"> Light</label>'
+        '<label><input type="radio" name="site-theme" value="dark"> Dark</label></div></fieldset>\n'
+        '    <fieldset><legend>Fidget toy</legend>\n'
+        '      <label class="set-row"><input type="checkbox" name="fidget-on"> Show the toy</label>\n'
+        '      <p class="set-sub">Version</p>\n'
+        '      <label class="set-row"><input type="radio" name="fidget-style" value="shards"> 1 · Shards</label>\n'
+        '      <label class="set-row"><input type="radio" name="fidget-style" value="julia"> 2 · Julia mirror</label>\n'
+        '      <label class="set-row set-sep"><input type="checkbox" name="fidget-auto"> Auto mode</label>\n'
+        '      <p class="set-help">Slowly zooms in and reveals new shapes on its own, like a fractal zoom video.</p>\n'
+        '      <label class="set-row set-sep"><input type="checkbox" name="fidget-gravity"> Enable movement</label>\n'
+        '    </fieldset>\n'
+        '  </div>\n'
+
         "</div></header>"
     )
 
