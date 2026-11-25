@@ -4,7 +4,10 @@ The source of truth for how this site looks and reads. Every new page follows it
 
 ## Feel
 
-Deep forest and warm, yellow-leaning off-white, with light touches of burnt orange. Calm, outdoorsy, professional. Backgrounds are shaded the way the Dreamstate app is: every page has a tinted band at the top (soft sage into an orange blush) that fades into the off-white base. Dark mode does the same with deep forest into a faint warm brown. Pages should feel built, not templated: big real screenshots, numbered sections, a story for every project.
+Deep forest and warm, yellow-leaning off-white. Calm, outdoorsy, professional. Two background layers:
+
+- **Base shade:** a fade fixed to the screen. It stays still while content scrolls across it. Light mode fades off-white to white. Dark mode fades deep forest to black. Fades only ever go to white or black, never to another color.
+- **Alternate shade:** a flat, solid color on `.shaded` sections that scrolls with the content. It has to be clearly different from the base, not a near match. Pages should feel built, not templated: big real screenshots, numbered sections, a story for every project.
 
 ## Color
 
@@ -12,30 +15,26 @@ Deep forest and warm, yellow-leaning off-white, with light touches of burnt oran
 
 | Token | Hex | Use |
 |---|---|---|
-| `--bg` | `#F6F1E1` | Page base. Yellower off-white than Steady Leads' `#F1EFE8` |
-| `--bg-2` | `#FBF8EE` | Bottom of the page, fades a little lighter |
-| `--top-1` | `#DFE8D8` | Top of the page fade, soft sage |
-| `--top-2` | `#F6E4D0` | Middle of the top fade, orange blush (around 300px) |
-| `--surface` | `#FFFDF6` | Cards, tiles, frames |
-| `--shade` | `#EFECDD` | Shaded sections |
+| `--bg` | `#F6F1E1` | Base shade, top of the fixed fade. Yellower than Steady Leads' `#F1EFE8` |
+| `--fade-to` | `#FFFFFF` | Bottom of the fixed fade |
+| `--surface` | `#FFFDF7` | Cards, tiles, frames |
+| `--shade` | `#E8E0C8` | Alternate shade: flat, scrolls with content |
 | `--ink` | `#1B2620` | Body text |
 | `--muted` | `#55625A` | Secondary text |
-| `--line` | `#DDD6C3` | Borders. Keep edges visible against the light background |
+| `--line` | `#D9D0B6` | Borders. Keep edges visible against the light background |
 | `--forest` | `#2B5140` | Primary accent, links, buttons |
 | `--forest-deep` | `#1F3D30` | Headings on tinted areas, hover |
 | `--moss` | `#6F8F5E` | Secondary accent, tags |
-| `--ember` | `#B5481A` | Light accents: the warm glow in the top right of every page, section number rules, badges. Never body text |
+| `--ember` | `#B5481A` | Small accents only: section number rules, badges. Never a background fade, never body text |
 
 ### Dark (toggle)
 
 | Token | Hex |
 |---|---|
-| `--bg` | `#0C1611` |
-| `--bg-2` | `#0E1A14` |
-| `--top-1` | `#1A3526` |
-| `--top-2` | `#2A2418` |
-| `--surface` | `#15261D` |
-| `--shade` | `#112018` |
+| `--bg` | `#0F1D16` |
+| `--fade-to` | `#000000` |
+| `--surface` | `#1A2E23` |
+| `--shade` | `#17291F` |
 | `--ink` | `#E9EFE7` |
 | `--muted` | `#A5B4A9` |
 | `--line` | `#283B30` |
@@ -44,7 +43,7 @@ Deep forest and warm, yellow-leaning off-white, with light touches of burnt oran
 | `--moss` | `#9DBB8A` |
 | `--ember` | `#E2895A` |
 
-Page background (both modes): a faint orange radial glow at the top right, over a vertical fade `--top-1` (0px) to `--top-2` (300px) to `--bg` (720px). It scrolls with the page, it isn't fixed.
+Implementation: the base fade is a `body::before` layer with `position: fixed` (works on iPhone, unlike `background-attachment: fixed`), going `--bg` at the top to `--fade-to` at the bottom of the screen. `.shaded` sections use a flat `--shade` with a 1px `--line` border top and bottom.
 
 ## Shape
 

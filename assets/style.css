@@ -1,14 +1,12 @@
 /* williamarana.pro. See STYLE.md for the palette and rules. */
 :root {
   --bg: #F6F1E1;
-  --bg-2: #FBF8EE;
-  --surface: #FFFDF6;
-  --shade: #EFECDD;
-  --top-1: #DFE8D8;
-  --top-2: #F6E4D0;
+  --fade-to: #FFFFFF;
+  --surface: #FFFDF7;
+  --shade: #E8E0C8;
   --ink: #1B2620;
   --muted: #55625A;
-  --line: #DDD6C3;
+  --line: #D9D0B6;
   --forest: #2B5140;
   --forest-deep: #1F3D30;
   --moss: #6F8F5E;
@@ -23,12 +21,10 @@
   color-scheme: light;
 }
 [data-theme="dark"] {
-  --bg: #0C1611;
-  --bg-2: #0E1A14;
-  --surface: #15261D;
-  --shade: #112018;
-  --top-1: #1A3526;
-  --top-2: #2A2418;
+  --bg: #0F1D16;
+  --fade-to: #000000;
+  --surface: #1A2E23;
+  --shade: #17291F;
   --ink: #E9EFE7;
   --muted: #A5B4A9;
   --line: #283B30;
@@ -47,17 +43,17 @@ html { -webkit-text-size-adjust: 100%; background: var(--bg); }
 body {
   margin: 0;
   color: var(--ink);
-  /* Dreamstate-style shading: tinted top that fades into the base, sage into a soft orange blush */
-  background:
-    radial-gradient(900px 420px at 88% -60px, color-mix(in srgb, var(--ember) 14%, transparent), transparent 70%),
-    linear-gradient(180deg, var(--top-1) 0, var(--top-2) 300px, var(--bg) 720px, var(--bg) 70%, var(--bg-2) 100%);
-  background-color: var(--bg);
+  background: transparent;
   font: 16.5px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 main { flex: 1; }
+/* Base shade: a fixed fade that stays put while content scrolls over it.
+   Light fades off-white to white, dark fades deep forest to black. */
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, var(--fade-to)) 55%, var(--fade-to) 100%); }
 a { color: var(--forest); }
 a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
 img { max-width: 100%; }
@@ -83,7 +79,7 @@ img { max-width: 100%; }
 
 /* Shared bits */
 .eyebrow { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--moss); margin: 0 0 10px; }
-.shaded { background: linear-gradient(180deg, var(--shade), color-mix(in srgb, var(--shade) 55%, var(--bg-2))); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 48px 0 56px; }
+ .shaded { background: var(--shade); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 48px 0 56px; }
 .section { padding: 56px 0 64px; }
 .section-title { font-size: 24px; letter-spacing: -.01em; margin: 0 0 18px; }
 .lead { color: var(--muted); margin: -6px 0 22px; max-width: 700px; font-size: 17px; }
@@ -127,7 +123,6 @@ a.phone:hover { transform: translateY(-3px); }
 
 /* Home: hero */
 .home-hero { position: relative; padding: 72px 0 64px; overflow: hidden; }
-.home-hero::before { content: ""; position: absolute; inset: -20% auto auto -15%; width: 60%; height: 120%; background: radial-gradient(closest-side, var(--glow), transparent); pointer-events: none; }
 .home-hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; position: relative; }
 .home-hero h1 { font-size: clamp(44px, 7vw, 76px); line-height: .98; letter-spacing: -.035em; margin: 0 0 20px; }
 .home-hero h1 span { color: var(--forest); }

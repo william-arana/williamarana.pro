@@ -80,7 +80,7 @@ def render(body, path, title, desc, active):
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:url" content="{canonical}">
-<meta name="theme-color" content="#DFE8D8">
+<meta name="theme-color" content="#F6F1E1">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/style.css">
 {THEME_INIT}
