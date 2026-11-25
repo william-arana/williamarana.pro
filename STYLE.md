@@ -15,7 +15,7 @@ Deep forest and warm, yellow-leaning off-white. Calm, outdoorsy, professional. T
 
 | Token | Hex | Use |
 |---|---|---|
-| `--bg` | `#F6F1E1` | Base shade, top of the fixed fade. Yellower than Steady Leads' `#F1EFE8` |
+| `--bg` | `#F0E6C8` | Base shade, top of the fixed fade. Deeper and yellower than Steady Leads' `#F1EFE8` so the fade to white is obvious |
 | `--fade-to` | `#FFFFFF` | Bottom of the fixed fade |
 | `--surface` | `#FFFDF7` | Cards, tiles, frames |
 | `--shade` | `#E8E0C8` | Alternate shade: flat, scrolls with content |
@@ -31,7 +31,7 @@ Deep forest and warm, yellow-leaning off-white. Calm, outdoorsy, professional. T
 
 | Token | Hex |
 |---|---|
-| `--bg` | `#0F1D16` |
+| `--bg` | `#14281D` |
 | `--fade-to` | `#000000` |
 | `--surface` | `#1A2E23` |
 | `--shade` | `#17291F` |
@@ -43,7 +43,7 @@ Deep forest and warm, yellow-leaning off-white. Calm, outdoorsy, professional. T
 | `--moss` | `#9DBB8A` |
 | `--ember` | `#E2895A` |
 
-Implementation: the base fade is a `body::before` layer with `position: fixed` (works on iPhone, unlike `background-attachment: fixed`), going `--bg` at the top to `--fade-to` at the bottom of the screen. `.shaded` sections use a flat `--shade` with a 1px `--line` border top and bottom.
+Implementation: the base fade is a `body::before` layer with `position: fixed` (works on iPhone, unlike `background-attachment: fixed`), going `--bg` at the top, about halfway to `--fade-to` at 45%, and fully `--fade-to` by 85% of the screen height. `.shaded` sections use a flat `--shade` with a 1px `--line` border top and bottom.
 
 ## Shape
 

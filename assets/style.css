@@ -1,6 +1,6 @@
 /* williamarana.pro. See STYLE.md for the palette and rules. */
 :root {
-  --bg: #F6F1E1;
+  --bg: #F0E6C8;
   --fade-to: #FFFFFF;
   --surface: #FFFDF7;
   --shade: #E8E0C8;
@@ -21,7 +21,7 @@
   color-scheme: light;
 }
 [data-theme="dark"] {
-  --bg: #0F1D16;
+  --bg: #14281D;
   --fade-to: #000000;
   --surface: #1A2E23;
   --shade: #17291F;
@@ -53,7 +53,7 @@ main { flex: 1; }
 /* Base shade: a fixed fade that stays put while content scrolls over it.
    Light fades off-white to white, dark fades deep forest to black. */
 body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, var(--fade-to)) 55%, var(--fade-to) 100%); }
+  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 45%, var(--fade-to)) 45%, var(--fade-to) 85%); }
 a { color: var(--forest); }
 a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
 img { max-width: 100%; }
@@ -136,12 +136,9 @@ a.phone:hover { transform: translateY(-3px); }
 .collage .c3 img { border-radius: 20px; }
 
 /* Home: index strip */
-.jump { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--surface); }
-.jump a { padding: 14px 16px; text-decoration: none; color: var(--ink); border-right: 1px solid var(--line); }
-.jump a:last-child { border-right: 0; }
-.jump a:hover { background: var(--shade); color: var(--ink); }
-.jump b { display: block; font-size: 12px; color: var(--moss); letter-spacing: .1em; }
-.jump span { font-weight: 700; }
+.jump { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.jump a { padding: 16px 18px; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); font-weight: 700; text-align: center; transition: border-color .15s, background .15s; }
+.jump a:hover { background: var(--shade); border-color: var(--forest); color: var(--ink); }
 
 /* Home: project sections */
 .project { padding: 80px 0; }
@@ -262,7 +259,6 @@ a.phone:hover { transform: translateY(-3px); }
   .collage { height: 360px; }
   .builds, .goals, .gallery { grid-template-columns: 1fr; }
   .jump { grid-template-columns: 1fr 1fr; }
-  .jump a { border-bottom: 1px solid var(--line); }
   .brand-kit { grid-template-columns: 1fr; }
   .brand-kit .og { grid-row: auto; }
   .project { padding: 56px 0; }
