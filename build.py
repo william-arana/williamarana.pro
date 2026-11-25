@@ -31,7 +31,7 @@ PAGES = {
     "gameday.html": ("/gameday/", "GameDay · William Arana", "GameDay_stats, a fantasy football stats site at thegameday.zone.", "/gameday/"),
     "dreamstate.html": ("/dreamstate/", "Dreamstate · William Arana", "DS Companion, a fan site for Dreamstate SoCal 2026.", "/dreamstate/"),
     "builds.html": ("/builds/", "Builds · William Arana", "PhonePad, a floating Shorts player and Chrome extensions: small tools I built instead of paying for them.", "/builds/"),
-    "next.html": ("/next/", "Next · William Arana", "What I'm building next: a personal CRM, published extensions, Mac apps and more.", "/next/"),
+    "next.html": ("/next/", "Next · William Arana", "What I'm building next: published extensions, Mac apps, more sports and more events.", "/next/"),
     "404.html": ("/404.html", "Page not found · William Arana", "This page doesn't exist.", None),
 }
 
@@ -80,7 +80,7 @@ def render(body, path, title, desc, active):
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:url" content="{canonical}">
-<meta name="theme-color" content="#F8F6F0">
+<meta name="theme-color" content="#DFE8D8">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/style.css">
 {THEME_INIT}

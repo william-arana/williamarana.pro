@@ -1,12 +1,14 @@
 /* williamarana.pro. See STYLE.md for the palette and rules. */
 :root {
-  --bg: #F8F6F0;
-  --bg-2: #E8EEE5;
-  --surface: #FDFCF8;
-  --shade: #EEF2EA;
+  --bg: #F6F1E1;
+  --bg-2: #FBF8EE;
+  --surface: #FFFDF6;
+  --shade: #EFECDD;
+  --top-1: #DFE8D8;
+  --top-2: #F6E4D0;
   --ink: #1B2620;
   --muted: #55625A;
-  --line: #D5DCD1;
+  --line: #DDD6C3;
   --forest: #2B5140;
   --forest-deep: #1F3D30;
   --moss: #6F8F5E;
@@ -22,9 +24,11 @@
 }
 [data-theme="dark"] {
   --bg: #0C1611;
-  --bg-2: #13271D;
+  --bg-2: #0E1A14;
   --surface: #15261D;
   --shade: #112018;
+  --top-1: #1A3526;
+  --top-2: #2A2418;
   --ink: #E9EFE7;
   --muted: #A5B4A9;
   --line: #283B30;
@@ -43,7 +47,11 @@ html { -webkit-text-size-adjust: 100%; background: var(--bg); }
 body {
   margin: 0;
   color: var(--ink);
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 35%, var(--bg-2) 100%) fixed;
+  /* Dreamstate-style shading: tinted top that fades into the base, sage into a soft orange blush */
+  background:
+    radial-gradient(900px 420px at 88% -60px, color-mix(in srgb, var(--ember) 14%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--top-1) 0, var(--top-2) 300px, var(--bg) 720px, var(--bg) 70%, var(--bg-2) 100%);
+  background-color: var(--bg);
   font: 16.5px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
@@ -75,7 +83,7 @@ img { max-width: 100%; }
 
 /* Shared bits */
 .eyebrow { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--moss); margin: 0 0 10px; }
-.shaded { background: linear-gradient(180deg, var(--shade), color-mix(in srgb, var(--shade) 60%, var(--bg-2))); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 48px 0 56px; }
+.shaded { background: linear-gradient(180deg, var(--shade), color-mix(in srgb, var(--shade) 55%, var(--bg-2))); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 48px 0 56px; }
 .section { padding: 56px 0 64px; }
 .section-title { font-size: 24px; letter-spacing: -.01em; margin: 0 0 18px; }
 .lead { color: var(--muted); margin: -6px 0 22px; max-width: 700px; font-size: 17px; }
@@ -119,7 +127,7 @@ a.phone:hover { transform: translateY(-3px); }
 
 /* Home: hero */
 .home-hero { position: relative; padding: 72px 0 64px; overflow: hidden; }
-.home-hero::before { content: ""; position: absolute; inset: -20% -10% auto auto; width: 70%; height: 140%; background: radial-gradient(closest-side, var(--glow), transparent); pointer-events: none; }
+.home-hero::before { content: ""; position: absolute; inset: -20% auto auto -15%; width: 60%; height: 120%; background: radial-gradient(closest-side, var(--glow), transparent); pointer-events: none; }
 .home-hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; position: relative; }
 .home-hero h1 { font-size: clamp(44px, 7vw, 76px); line-height: .98; letter-spacing: -.035em; margin: 0 0 20px; }
 .home-hero h1 span { color: var(--forest); }
@@ -146,7 +154,7 @@ a.phone:hover { transform: translateY(-3px); }
 .project.flip .wrap { grid-template-columns: 1.15fr 1fr; }
 .project.flip .media { order: -1; }
 .project .num { font-size: 13px; font-weight: 800; letter-spacing: .14em; color: var(--moss); display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.project .num::after { content: ""; height: 1px; width: 48px; background: var(--moss); opacity: .6; }
+.project .num::after { content: ""; height: 2px; width: 48px; background: var(--ember); opacity: .55; }
 .project h2 { font-size: clamp(30px, 4vw, 42px); line-height: 1.08; letter-spacing: -.025em; margin: 0 0 14px; }
 .project .pitch { font-size: 18px; color: var(--ink); margin: 0 0 22px; }
 .story { display: grid; gap: 14px; margin: 0 0 6px; }
