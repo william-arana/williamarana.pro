@@ -74,3 +74,7 @@ Implementation: the base fade is a `body::before` layer with `position: fixed` (
 - Work pages use fake demo data only. No real Nuve Home customers, leads or notes.
 - Don't write claims about data handling or terms compliance unless William asks for them.
 - Name on the site is "William Arana". Don't use "Bill" on the home page.
+
+## Fidget toy
+
+A kaleidoscope toy (`assets/fidget.js`) on every page. Defaults: Shards style, gravity off, parked on the left edge, vertically centered (bottom left on phones). Click to change the pattern, drag to move, and with gravity on, throw it. A gear button opens settings: style (Shards or Julia mirror), gravity, reset position, hide. Choices are saved per browser. Transitions crossfade with a gentle scale and twist so a click never snaps, even mid-transition.

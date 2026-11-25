@@ -85,6 +85,7 @@ def render(body, path, title, desc, active):
 <link rel="stylesheet" href="/assets/style.css">
 {THEME_INIT}
 <script src="/assets/site.js" defer></script>
+<script src="/assets/fidget.js" defer></script>
 </head>
 <body>
 {header(active)}
