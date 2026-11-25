@@ -1,6 +1,75 @@
-<section class="stub"><div class="wrap">
+<section class="hero"><div class="wrap">
   <p class="eyebrow">Builds</p>
-  <h1>Builds</h1>
-  <p>PhonePad, a floating Shorts player and Chrome extensions. Code is on <a href="https://github.com/william-arana">github.com/william-arana</a>.</p>
-  <span class="badge">Coming soon</span>
+  <h1>Small tools I built instead of paying for them.</h1>
+  <p>Most of these started the same way. An app wanted a monthly fee, or didn't quite do what I needed, so I built my own version with Claude. They're the tools I use every day on my Mac.</p>
+  <div class="btn-row"><a class="btn primary" href="https://github.com/william-arana">My GitHub</a><a class="btn" href="/next/">What I'm building next</a></div>
+</div></section>
+
+<section class="shaded" id="phonepad"><div class="wrap">
+  <div class="split">
+    <div>
+      <div class="build" style="box-shadow:none">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/></svg></div>
+        <p class="eyebrow" style="margin:6px 0 0">01 · Mac + iPhone</p>
+        <h3 style="font-size:28px;letter-spacing:-.02em">PhonePad</h3>
+        <p style="font-size:17px;color:var(--ink)">My iPhone as a trackpad and keyboard for my Mac. No account, no app store, no subscription.</p>
+        <div><span class="tag">Web app</span> <span class="tag">Runs locally</span> <span class="tag">Built with Claude</span></div>
+      </div>
+    </div>
+    <div class="story">
+      <div><b>The problem</b><p>Every remote mouse app I tried wanted a monthly subscription for something simple: move the cursor and type from my phone when I'm across the room from my Mac.</p></div>
+      <div><b>What I built</b><p>A small web app that runs on my Mac. I start it with one double-click, open the page on my iPhone over Wi-Fi, and the phone becomes a trackpad with a keyboard.</p></div>
+      <div><b>How I got there</b><p>I kept it as simple as possible: a local server on the Mac and a single page on the phone. No install on the phone at all, which also means nothing to update.</p></div>
+      <div><b>What's next</b><p>A three finger swipe to switch between full screen apps, and an option to play the Mac's audio through the phone.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section" id="shorts-player"><div class="wrap">
+  <div class="split">
+    <div>
+      <div class="build" style="box-shadow:none">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="14" rx="1.5"/><rect x="12" y="10" width="8" height="6" rx="1" fill="currentColor"/></svg></div>
+        <p class="eyebrow" style="margin:6px 0 0">02 · Chrome + Mac</p>
+        <h3 style="font-size:28px;letter-spacing:-.02em">Floating Shorts player</h3>
+        <p style="font-size:17px;color:var(--ink)">YouTube Shorts in a floating window that stays on top of everything, even full screen apps, with real controls.</p>
+        <div><span class="tag">Chrome extension</span> <span class="tag">Native Mac app</span> <span class="tag">Open source fork</span></div>
+      </div>
+    </div>
+    <div class="story">
+      <div><b>The problem</b><p>The picture in picture apps that do this well are paid, and the free ones don't give you next, previous or skip controls. I wanted to scroll Shorts in a corner while I work without touching the browser.</p></div>
+      <div><b>What I built</b><p>A fork of the open source FullFloatPiP extension and its Mac app. I added on-screen previous and next buttons, adjustable skip back and forward, play and pause, and global hotkeys I can set myself, like Cmd+Shift+Down for the next Short.</p></div>
+      <div><b>How I got there</b><p>Instead of starting from zero, I found the best open source base and built on it. The extension handles YouTube, and the Mac app is what lets the window float over full screen apps.</p></div>
+      <div><b>What's next</b><p>A clean version anyone can install from the Chrome Web Store, likely extension only at first so it doesn't need the Mac app.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="shaded" id="extensions"><div class="wrap">
+  <div class="split">
+    <div>
+      <div class="build" style="box-shadow:none">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h7l2-3h7v16H4z"/><path d="M9 13h6M12 10v6"/></svg></div>
+        <p class="eyebrow" style="margin:6px 0 0">03 · Chrome Web Store</p>
+        <h3 style="font-size:28px;letter-spacing:-.02em">Chrome extensions</h3>
+        <p style="font-size:17px;color:var(--ink)">My own versions of popular paid extensions, sold for a small one-time price instead of a monthly fee.</p>
+        <div><span class="tag">In progress</span> <span class="tag">One-time pricing</span></div>
+      </div>
+    </div>
+    <div class="story">
+      <div><b>The problem</b><p>A lot of popular extensions do one small job and charge every month for it. That adds up, and most people would rather pay once.</p></div>
+      <div><b>The plan</b><p>Rebuild them one at a time, starting with the floating Shorts player. Each one gets a free trial, then a low one-time payment.</p></div>
+      <div><b>How I'm approaching it</b><p>Build each for myself first and use it daily. Only the ones that hold up get cleaned up and published.</p></div>
+      <div><b>What's next</b><p>Once there are enough of them, a simple site to host them all in one place.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section"><div class="wrap">
+  <h2 class="section-title">Bigger builds</h2>
+  <div class="cards">
+    <a class="card" href="/gameday/"><div class="thumb"><img src="/assets/shots/gd-home.jpg" alt="" loading="lazy"></div><h3>GameDay_stats</h3><p>A fantasy football war room with a waiver board, a SQL Lab and daily coach press conference summaries.</p><span class="meta">Read the story &rarr;</span></a>
+    <a class="card" href="/dreamstate/"><div class="thumb"><img src="/assets/showcase/dreamstate/og.jpg" alt="" loading="lazy"></div><h3>DS Companion</h3><p>A festival app with 863 tracks, set times, live timing and a map that works with no signal.</p><span class="meta">Read the story &rarr;</span></a>
+    <a class="card" href="/portfolio/"><div class="thumb"><img src="/assets/shots/ws-day.jpg" alt="" loading="lazy"></div><h3>Sales boards</h3><p>The day board, prospect page and end of day review I built for my SDR work.</p><span class="meta">See the portfolio &rarr;</span></a>
+  </div>
 </div></section>

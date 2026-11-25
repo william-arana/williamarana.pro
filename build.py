@@ -30,8 +30,8 @@ PAGES = {
     "portfolio.html": ("/portfolio/", "Portfolio · William Arana", "SDR work samples: day board, prospect page, end of day review and more.", "/portfolio/"),
     "gameday.html": ("/gameday/", "GameDay · William Arana", "GameDay_stats, a fantasy football stats site at thegameday.zone.", "/gameday/"),
     "dreamstate.html": ("/dreamstate/", "Dreamstate · William Arana", "DS Companion, a fan site for Dreamstate SoCal 2026.", "/dreamstate/"),
-    "builds.html": ("/builds/", "Builds · William Arana", "Things I've built on GitHub: PhonePad, a floating Shorts player and Chrome extensions.", "/builds/"),
-    "next.html": ("/next/", "Next · William Arana", "What I'm building next: a personal CRM and real apps.", "/next/"),
+    "builds.html": ("/builds/", "Builds · William Arana", "PhonePad, a floating Shorts player and Chrome extensions: small tools I built instead of paying for them.", "/builds/"),
+    "next.html": ("/next/", "Next · William Arana", "What I'm building next: a personal CRM, published extensions, Mac apps and more.", "/next/"),
     "404.html": ("/404.html", "Page not found · William Arana", "This page doesn't exist.", None),
 }
 
@@ -50,7 +50,7 @@ def header(active):
     return (
         '<a class="skip" href="#main">Skip to content</a>\n'
         '<header class="site-header"><div class="wrap">\n'
-        '  <a class="brand" href="/">William Arana&#39;s Projects</a>\n'
+        '  <a class="brand" href="/"><span>William Arana&#39;s</span><em>Projects</em></a>\n'
         f'  <nav class="nav" aria-label="Main">{"".join(links)}</nav>\n'
         '  <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Dark mode</button>\n'
         "</div></header>"

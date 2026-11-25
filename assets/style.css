@@ -273,3 +273,9 @@ a.phone:hover { transform: translateY(-3px); }
   .collage .c3 { display: none; }
   .media .phones .phone:nth-child(3) { display: none; }
 }
+
+/* Header wordmark: sans name + italic serif "Projects" */
+.brand { gap: 8px; font-size: 17px; }
+.brand span { font-weight: 800; letter-spacing: -.015em; }
+.brand em { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-style: italic; font-weight: 500; font-size: 1.18em; color: var(--forest); letter-spacing: 0; margin-left: -1px; }
+.brand:hover em { color: var(--forest-deep); }
