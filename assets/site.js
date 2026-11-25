@@ -30,3 +30,18 @@
     });
   });
 })();
+
+// Suggestions box: opens the visitor's email app with the note filled in.
+document.addEventListener("DOMContentLoaded", function () {
+  var f = document.getElementById("suggest");
+  if (!f) return;
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var el = f.elements, type = el["type"].value, msg = el["msg"].value.trim(), name = el["name"].value.trim();
+    if (!msg) return;
+    var body = msg + (name ? "\n\n- " + name : "");
+    location.href = "mailto:" + f.getAttribute("data-to") +
+      "?subject=" + encodeURIComponent("Site suggestion: " + type) +
+      "&body=" + encodeURIComponent(body);
+  });
+});

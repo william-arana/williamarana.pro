@@ -26,7 +26,7 @@ NAV = [
 
 # source file in pages/  ->  (url path, <title>, meta description, active nav href)
 PAGES = {
-    "index.html": ("/", "William Arana", "William \"Bill\" Arana: SDR in Santa Ana, CA, building sales tools with Claude.", "/"),
+    "index.html": ("/", "William Arana", "William Arana, SDR in Santa Ana, CA, building sales tools with Claude.", "/"),
     "portfolio.html": ("/portfolio/", "Portfolio · William Arana", "SDR work samples: day board, prospect page, end of day review and more.", "/portfolio/"),
     "gameday.html": ("/gameday/", "GameDay · William Arana", "GameDay_stats, a fantasy football stats site at thegameday.zone.", "/gameday/"),
     "dreamstate.html": ("/dreamstate/", "Dreamstate · William Arana", "DS Companion, a fan site for Dreamstate SoCal 2026.", "/dreamstate/"),
@@ -50,7 +50,7 @@ def header(active):
     return (
         '<a class="skip" href="#main">Skip to content</a>\n'
         '<header class="site-header"><div class="wrap">\n'
-        '  <a class="brand" href="/">William Arana</a>\n'
+        '  <a class="brand" href="/">William Arana&#39;s Projects</a>\n'
         f'  <nav class="nav" aria-label="Main">{"".join(links)}</nav>\n'
         '  <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Dark mode</button>\n'
         "</div></header>"
@@ -80,7 +80,7 @@ def render(body, path, title, desc, active):
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:url" content="{canonical}">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#F8F6F0">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/style.css">
 {THEME_INIT}

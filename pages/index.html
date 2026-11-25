@@ -1,36 +1,146 @@
-<section class="hero"><div class="wrap">
-  <p class="eyebrow">Santa Ana, CA</p>
-  <h1>William "Bill" Arana</h1>
-  <p>I'm an SDR based in Santa Ana and a UCSB grad. I build my own tools with Claude: call boards, prospect pages, stats sites and small apps that make the day run faster.</p>
+<section class="home-hero"><div class="wrap">
+  <div>
+    <p class="eyebrow">SDR · Santa Ana, CA · UCSB grad</p>
+    <h1>William Arana.<br><span>I sell, and I build what helps me sell.</span></h1>
+    <p class="intro">I'm a sales development rep at Nuve Home. When a tool doesn't exist, or costs too much, or makes me click through five tabs, I build my own with Claude. This site is where those builds live: the boards I run my sales day on, a fantasy football stats site, a festival app my friends used all weekend, and the small Mac tools I use every day.</p>
+    <div class="facts"><span class="tag">Outbound SDR</span><span class="tag">Built with Claude</span><span class="tag">HTML · CSS · JS · Python</span><span class="tag">English / Spanish</span></div>
+    <div class="btn-row"><a class="btn primary" href="/portfolio/">See my sales work</a><a class="btn" href="#suggest">Send me an idea</a></div>
+  </div>
+  <div class="collage" aria-hidden="true">
+    <a class="browser c1" href="/gameday/" tabindex="-1"><div class="bar"><i></i><i></i><i></i><span>thegameday.zone</span></div><img src="/assets/shots/gd-home.jpg" alt=""></a>
+    <a class="browser c2" href="/portfolio/" tabindex="-1"><div class="bar"><i></i><i></i><i></i><span>day board</span></div><img src="/assets/shots/ws-day.jpg" alt=""></a>
+    <a class="phone c3" href="/dreamstate/" tabindex="-1"><img src="/assets/shots/ds-sets.jpg" alt=""></a>
+  </div>
 </div></section>
 
-<section class="shaded"><div class="wrap">
-  <h2 class="section-title">Explore</h2>
-  <div class="cards">
-    <a class="card" href="/portfolio/">
-      <h3>Portfolio</h3>
-      <p>SDR work samples: the day board, prospect pages, end of day reviews and account lists I use to run outbound.</p>
-      <span class="meta">View portfolio &rarr;</span>
-    </a>
-    <a class="card" href="/gameday/">
-      <h3>GameDay</h3>
-      <p>GameDay_stats, a fantasy football stats site built on nflverse data with waiver and trade tools.</p>
-      <span class="meta">About GameDay &rarr;</span>
-    </a>
-    <a class="card" href="/dreamstate/">
-      <h3>Dreamstate</h3>
-      <p>DS Companion, a fan site for Dreamstate SoCal 2026 with playlists, set times and a map.</p>
-      <span class="meta">About DS Companion &rarr;</span>
-    </a>
-    <a class="card" href="/builds/">
-      <h3>Builds</h3>
-      <p>Code on GitHub: PhonePad, a floating Shorts player and Chrome extensions.</p>
-      <span class="meta">See builds &rarr;</span>
-    </a>
-    <a class="card" href="/next/">
-      <h3>Next</h3>
-      <p>What I'm building next, starting with a personal CRM and real apps.</p>
-      <span class="meta">What's next &rarr;</span>
-    </a>
+<div class="wrap"><nav class="jump" aria-label="Sections">
+  <a href="#sales"><b>01</b><span>Sales work</span></a>
+  <a href="#gameday"><b>02</b><span>GameDay_stats</span></a>
+  <a href="#dreamstate"><b>03</b><span>DS Companion</span></a>
+  <a href="#builds"><b>04</b><span>Builds</span></a>
+  <a href="#next"><b>05</b><span>What's next</span></a>
+</nav></div>
+
+<section class="project" id="sales"><div class="wrap">
+  <div>
+    <div class="num">01 · SALES WORK</div>
+    <h2>A sales day that runs off one screen.</h2>
+    <p class="pitch">My call list lived in HubSpot, the dialer in Nooks, and the context I needed before each call was spread across notes, emails and old activity. So I built boards that pull it into one place: what to do first, who to call, and everything I know about each account.</p>
+    <div class="story">
+      <div><b>The problem</b><p>Prep ate the morning. Every call meant clicking through records to remember who I talked to, what they said and what I promised. Follow-ups slipped when the day got busy.</p></div>
+      <div><b>What I built</b><p>A day board with a morning brief, dials planned by time zone, the call list and full account history side by side. An end of day review that shows dials, conversations and demos booked, and drafts the follow-ups. A prospect page I can send a contractor that shows the product with their own brand on it.</p></div>
+      <div><b>How I got there</b><p>I started with the exports I already had, built one view at a time, and kept only what I actually used on calls. Each version came from a real day of dialing.</p></div>
+      <div><b>The goal</b><p>Less time prepping, more conversations. Walk into every call already knowing the account.</p></div>
+    </div>
+    <div class="btn-row"><a class="btn primary" href="/portfolio/">Open the portfolio</a></div>
+    <p class="note">Every name, company and number in these samples is made-up demo data.</p>
+  </div>
+  <div class="media">
+    <a class="browser" href="/portfolio/"><div class="bar"><i></i><i></i><i></i><span>day board</span></div><img src="/assets/shots/ws-day.jpg" alt="Day board: morning brief, call list and account history" loading="lazy"></a>
+    <div class="stack">
+      <a class="browser" href="/portfolio/"><div class="bar"><i></i><i></i><i></i><span>end of day</span></div><img src="/assets/shots/ws-eod.jpg" alt="End of day review" loading="lazy"></a>
+      <a class="browser" href="/portfolio/"><div class="bar"><i></i><i></i><i></i><span>prospect page</span></div><img src="/assets/shots/ws-prospect.jpg" alt="Personalized prospect page" loading="lazy"></a>
+    </div>
+  </div>
+</div></section>
+
+<section class="project flip shaded" id="gameday"><div class="wrap">
+  <div>
+    <div class="num">02 · GAMEDAY_STATS</div>
+    <h2>A fantasy football war room I actually trust.</h2>
+    <p class="pitch">Fantasy apps tell you what already happened. I wanted something that tells me what to do this week, built on real data, with my own math.</p>
+    <div class="story">
+      <div><b>The problem</b><p>The data I wanted was split across apps, articles and press conferences, and the projections the big apps give you are a black box.</p></div>
+      <div><b>What I built</b><p>A waiver board for my Sleeper leagues, a Lab for querying every nflverse stat with SQL, daily head coach press conference summaries, and weekly recap and preview write-ups. It updates itself with GitHub Actions.</p></div>
+      <div><b>How I got there</b><p>It started as NFL_stats, a page of tables. I added one project at a time and finished each before starting the next. I applied for and got Yahoo Fantasy API access, then renamed it GameDay_stats so it can grow into MLB and Premier League fantasy.</p></div>
+      <div><b>The goal</b><p>A rest-of-season player model that beats ESPN and Sleeper projections, with locked weekly projections as the track record.</p></div>
+    </div>
+    <div class="btn-row"><a class="btn primary" href="/gameday/">Read the full story</a><a class="btn" href="https://thegameday.zone">thegameday.zone</a></div>
+  </div>
+  <div class="media">
+    <a class="browser" href="/gameday/"><div class="bar"><i></i><i></i><i></i><span>thegameday.zone</span></div><img src="/assets/shots/gd-home.jpg" alt="GameDay_stats home page" loading="lazy"></a>
+    <div class="stack">
+      <a class="browser" href="/gameday/"><div class="bar"><i></i><i></i><i></i><span>waivers</span></div><img src="/assets/shots/gd-waivers.jpg" alt="Waiver board" loading="lazy"></a>
+      <a class="browser" href="/gameday/"><div class="bar"><i></i><i></i><i></i><span>pressers</span></div><img src="/assets/shots/gd-pressers.jpg" alt="Press conference summaries" loading="lazy"></a>
+    </div>
+  </div>
+</div></section>
+
+<section class="project" id="dreamstate"><div class="wrap">
+  <div>
+    <div class="num">03 · DS COMPANION</div>
+    <h2>A festival app that works when the signal doesn't.</h2>
+    <p class="pitch">Before Dreamstate SoCal 2026 I wanted to hear every artist on the lineup, plan my sets and share it all with friends. Nothing like that existed, so I made it.</p>
+    <div class="story">
+      <div><b>The problem</b><p>A lineup full of names I half knew, set times in a flat image, and a venue where phone service dies once the crowd shows up.</p></div>
+      <div><b>What I built</b><p>Playlists from my own libraries sorted by set time, 30 second previews, a set time grid where you star your plan, live timing during the show and a festival map. It installs to your home screen like an app.</p></div>
+      <div><b>How I got there</b><p>At the festival it loaded blank with weak signal until I switched to airplane mode. That taught me the real lesson: open from the saved copy first, then check the network. I rebuilt it that way.</p></div>
+      <div><b>The goal</b><p>Do it again next year, and build companions for other events.</p></div>
+    </div>
+    <div class="btn-row"><a class="btn primary" href="/dreamstate/">Read the full story</a><a class="btn" href="https://dreamstate26.thegameday.zone">Open the app</a></div>
+  </div>
+  <div class="media"><div class="phones">
+    <a class="phone" href="/dreamstate/"><img src="/assets/shots/ds-sets.jpg" alt="Set times grid" loading="lazy"></a>
+    <a class="phone" href="/dreamstate/"><img src="/assets/shots/ds-map.jpg" alt="Festival map" loading="lazy"></a>
+    <a class="phone" href="/dreamstate/"><img src="/assets/shots/ds-play.jpg" alt="How to use screen" loading="lazy"></a>
+  </div></div>
+</div></section>
+
+<section class="shaded" id="builds"><div class="wrap">
+  <p class="eyebrow">04 · Builds</p>
+  <h2 class="section-title" style="font-size:clamp(28px,4vw,40px);letter-spacing:-.02em">Small tools, because I didn't want another subscription.</h2>
+  <p class="lead">Most of these started the same way: an app wanted a monthly fee for something I could build in an evening.</p>
+  <div class="builds">
+    <div class="build">
+      <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/></svg></div>
+      <h3>PhonePad</h3>
+      <p>Turns my iPhone into a trackpad and keyboard for my Mac. It runs locally from a small web app, no account and no app store.</p>
+      <p class="why"><b>Why:</b> the remote mouse apps I tried all wanted a subscription.</p>
+    </div>
+    <div class="build">
+      <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="14" rx="1.5"/><rect x="12" y="10" width="8" height="6" rx="1" fill="currentColor"/></svg></div>
+      <h3>Floating Shorts player</h3>
+      <p>A fork of the open source FullFloatPiP Chrome extension and Mac app. Shorts float over full screen apps with next, previous, skip buttons and global hotkeys.</p>
+      <p class="why"><b>Why:</b> I didn't want to pay for a picture in picture app to get the controls I wanted.</p>
+    </div>
+    <div class="build">
+      <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h7l2-3h7v16H4z"/><path d="M9 13h6M12 10v6"/></svg></div>
+      <h3>Chrome extensions</h3>
+      <p>My own versions of paid extensions, starting with the Shorts player. Next up are clean, sellable builds anyone can install.</p>
+      <p class="why"><b>Why:</b> if I'm building it for myself anyway, it can help other people too.</p>
+    </div>
+  </div>
+  <div class="btn-row"><a class="btn" href="/builds/">More on builds</a><a class="btn" href="https://github.com/william-arana">GitHub</a></div>
+</div></section>
+
+<section class="section" id="next"><div class="wrap">
+  <div class="next-grid">
+    <div>
+      <p class="eyebrow">05 · What's next</p>
+      <h2 class="section-title" style="font-size:clamp(28px,4vw,40px);letter-spacing:-.02em">From personal tools to real apps.</h2>
+      <p class="lead" style="margin-top:0">Everything here so far was built for me first. The next step is taking what works and making it solid enough for other people to use.</p>
+      <ul class="roadmap">
+        <li><b>A personal CRM</b><span>The day board grew out of HubSpot exports. The next version is my own CRM, built around how an SDR actually works a day.</span></li>
+        <li><b>Real apps</b><span>Taking the Mac tools and extensions from side projects to installable apps with proper releases.</span></li>
+        <li><b>GameDay for more sports</b><span>MLB next season, then Premier League fantasy, all on thegameday.zone.</span></li>
+      </ul>
+    </div>
+    <form class="suggest" id="suggest" data-to="wa@williamarana.pro">
+      <h3>Suggestions box</h3>
+      <p>Something you want built, a feature for one of these, or something that's broken? Tell me. This opens an email to me with your note filled in.</p>
+      <label for="s-type">What's it about?</label>
+      <select id="s-type" name="type">
+        <option>An idea for something new</option>
+        <option>GameDay_stats</option>
+        <option>DS Companion</option>
+        <option>Sales tools</option>
+        <option>Something's broken</option>
+      </select>
+      <label for="s-msg">Your note</label>
+      <textarea id="s-msg" name="msg" required placeholder="What should I build or fix?"></textarea>
+      <label for="s-name">Your name (optional)</label>
+      <input id="s-name" name="name" autocomplete="name">
+      <button class="btn primary" type="submit">Send suggestion</button>
+    </form>
   </div>
 </div></section>
