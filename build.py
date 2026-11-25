@@ -68,6 +68,7 @@ def header(active):
         '      <label class="set-row set-sep"><input type="checkbox" name="fidget-auto"> Auto mode</label>\n'
         '      <p class="set-help">Slowly zooms in and reveals new shapes on its own, like a fractal zoom video.</p>\n'
         '      <label class="set-row set-sep"><input type="checkbox" name="fidget-gravity"> Enable movement</label>\n'
+        '      <label class="set-row"><input type="checkbox" name="fidget-wander"> Auto movement</label>\n'
         '    </fieldset>\n'
         '  </div>\n'
 

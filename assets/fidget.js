@@ -7,8 +7,8 @@
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked */ } }
-  var state = Object.assign({ style: "shards", gravity: false, on: true, auto: false, x: null, y: null }, load());
-  if (state.style !== "julia") state.style = "shards";
+  var state = Object.assign({ style: "julia", gravity: false, wander: false, on: true, auto: true, x: null, y: null }, load());
+  if (state.style !== "shards") state.style = "julia";
 
   var easeIO = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
   var pick = function (a) { return a[Math.floor(Math.random() * a.length)]; };
@@ -43,7 +43,7 @@
 
   // Throw physics: friction slows it down, edges bounce, it stays where it stops.
   function physics(dt) {
-    if (!state.gravity || dragging || !moving) return;
+    if (!(state.gravity || state.wander) || dragging || !moving) return;
     var k = dt / 16.67, f = Math.pow(0.955, k), b = bounds();
     pos.vx *= f; pos.vy *= f;
     pos.x += pos.vx * k; pos.y += pos.vy * k;
@@ -52,8 +52,43 @@
     if (pos.y < b.minY) { pos.y = b.minY; pos.vy = -pos.vy * 0.7; }
     if (pos.y > b.maxY) { pos.y = b.maxY; pos.vy = -pos.vy * 0.7; }
     place();
-    if (Math.hypot(pos.vx, pos.vy) < 0.05) { moving = false; state.x = pos.x; state.y = pos.y; save(); }
+    if (Math.hypot(pos.vx, pos.vy) < (state.wander ? 0.6 : 0.05)) { moving = false; state.x = pos.x; state.y = pos.y; save(); if (state.wander) { W.th = Math.atan2(pos.vy, pos.vx); W.sp = Math.hypot(pos.vx, pos.vy); wanderMode(); } }
   }
+
+  // Auto movement: wanders the screen like something alive. It cruises on a heading that
+  // drifts smoothly, sometimes pauses to "look around", sometimes darts, breathes, leans
+  // into its turns, and steers away from the edges.
+  var W = { th: Math.random() * 6.28, sp: 0, target: 0.6, mode: "cruise", left: 2500, ph: [Math.random() * 9, Math.random() * 9, Math.random() * 9], t: 0, tilt: 0, rest: 0 };
+  function wanderMode() {
+    var r = Math.random();
+    if (r < 0.22) { W.mode = "pause"; W.target = 0; W.left = 900 + Math.random() * 2200; }
+    else if (r < 0.34) { W.mode = "dart"; W.target = 2.6 + Math.random() * 1.6; W.left = 280 + Math.random() * 380; W.th += (Math.random() - .5) * 2.2; }
+    else { W.mode = "cruise"; W.target = 0.35 + Math.random() * 0.55; W.left = 2200 + Math.random() * 4200; }
+  }
+  function wander(dt) {
+    if (!state.wander || dragging || moving) return;
+    var k = dt / 16.67, b = bounds(), cx = pos.x, cy = pos.y;
+    W.t += dt; W.left -= dt; if (W.left <= 0) wanderMode();
+    var turn = Math.sin(W.t * 0.00071 + W.ph[0]) * 0.6 + Math.sin(W.t * 0.00183 + W.ph[1]) * 0.3 + Math.sin(W.t * 0.0041 + W.ph[2]) * 0.1;
+    W.th += turn * 0.018 * k * (W.mode === "pause" ? 0.3 : 1);
+    var m = 90, fx = 0, fy = 0;
+    if (cx < b.minX + m) fx += (b.minX + m - cx) / m;
+    if (cx > b.maxX - m) fx -= (cx - (b.maxX - m)) / m;
+    if (cy < b.minY + m) fy += (b.minY + m - cy) / m;
+    if (cy > b.maxY - m) fy -= (cy - (b.maxY - m)) / m;
+    if (fx || fy) {
+      var want = Math.atan2(fy, fx), diff = Math.atan2(Math.sin(want - W.th), Math.cos(want - W.th));
+      W.th += diff * Math.min(1, 0.06 * k * Math.hypot(fx, fy));
+    }
+    W.sp += (W.target - W.sp) * Math.min(1, (W.mode === "dart" ? 0.12 : 0.035) * k);
+    var vx = Math.cos(W.th) * W.sp, vy = Math.sin(W.th) * W.sp;
+    pos.x += vx * k; pos.y += vy * k; clamp(); place();
+    W.tilt += (Math.max(-12, Math.min(12, vx * 6 + turn * 6)) - W.tilt) * 0.08 * k;
+    var breathe = 1 + 0.025 * Math.sin(W.t * 0.0032) + (W.mode === "dart" ? 0.02 : 0);
+    toy.style.transform = "rotate(" + W.tilt.toFixed(2) + "deg) scale(" + breathe.toFixed(3) + ")";
+    W.rest += dt; if (W.rest > 3000) { W.rest = 0; state.x = pos.x; state.y = pos.y; save(); }
+  }
+  function stopWander() { toy.style.transform = ""; W.sp = 0; }
 
   var start = null, last = null, moved = false;
   toy.addEventListener("pointerdown", function (e) {
@@ -63,7 +98,7 @@
     last = { x: e.clientX, y: e.clientY, t: performance.now(), vx: 0, vy: 0 };
   });
   toy.addEventListener("pointermove", function (e) {
-    if (!dragging || !state.gravity) return;
+    if (!dragging || !(state.gravity || state.wander)) return;
     var dx = e.clientX - start.px, dy = e.clientY - start.py;
     if (!moved && Math.hypot(dx, dy) > 5) { moved = true; root.classList.add("is-dragging"); }
     if (!moved) return;
@@ -90,12 +125,12 @@
   function buildSettings() {
     var panel = document.getElementById("settings-panel");
     if (!panel) return;
-    var on = panel.querySelector('[name="fidget-on"]'), grav = panel.querySelector('[name="fidget-gravity"]'), auto = panel.querySelector('[name="fidget-auto"]');
+    var on = panel.querySelector('[name="fidget-on"]'), grav = panel.querySelector('[name="fidget-gravity"]'), auto = panel.querySelector('[name="fidget-auto"]'), wan = panel.querySelector('[name="fidget-wander"]');
     var radios = panel.querySelectorAll('[name="fidget-style"]');
     function sync() {
-      on.checked = !!state.on; grav.checked = !!state.gravity; auto.checked = !!state.auto;
+      on.checked = !!state.on; grav.checked = !!state.gravity; auto.checked = !!state.auto; wan.checked = !!state.wander;
       radios.forEach(function (r) { r.checked = r.value === state.style; r.disabled = !state.on; });
-      grav.disabled = auto.disabled = !state.on;
+      grav.disabled = auto.disabled = wan.disabled = !state.on;
       panel.classList.toggle("toy-off", !state.on);
     }
     sync();
@@ -104,8 +139,15 @@
     auto.addEventListener("change", function () { setAuto(auto.checked); });
     grav.addEventListener("change", function () {
       state.gravity = grav.checked;
-      if (!state.gravity) { state.x = state.y = null; setHome(true); }
-      root.classList.toggle("is-free", state.gravity);
+      if (!state.gravity && !state.wander) { state.x = state.y = null; setHome(true); }
+      root.classList.toggle("is-free", state.gravity || state.wander);
+      save();
+    });
+    wan.addEventListener("change", function () {
+      state.wander = wan.checked;
+      if (state.wander) { W.th = Math.random() * 6.28; W.sp = 0; W.mode = "cruise"; W.target = 0.6; W.left = 3000; }
+      else { stopWander(); if (!state.gravity) { state.x = state.y = null; setHome(true); } else { state.x = pos.x; state.y = pos.y; } }
+      root.classList.toggle("is-free", state.gravity || state.wander);
       save();
     });
   }
@@ -295,7 +337,7 @@
   function frame(now) {
     var dt = Math.min(50, now - lastT); lastT = now;
     if (!document.hidden && state.on) {
-      physics(dt);
+      physics(dt); wander(dt);
       if (state.style === "julia") drawJulia(dt);
       else if (state.auto) drawZoom(dt);
       else drawShards(dt);
@@ -308,11 +350,11 @@
     measure(); readColors();
     cur = pattern(); nxt = cur;
     if (state.auto) { startZoom(); aTarget = 1; aBlend = 1; }
-    if (state.gravity && state.x != null) { pos.x = state.x; pos.y = state.y; clamp(); place(); } else setHome(false);
-    root.classList.toggle("is-free", !!state.gravity);
+    if ((state.gravity || state.wander) && state.x != null) { pos.x = state.x; pos.y = state.y; clamp(); place(); } else setHome(false);
+    root.classList.toggle("is-free", !!(state.gravity || state.wander));
     applyOn(); buildSettings();
     new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    window.addEventListener("resize", function () { measure(); if (state.gravity) { clamp(); place(); } else setHome(false); });
+    window.addEventListener("resize", function () { measure(); if (state.gravity || state.wander) { clamp(); place(); } else setHome(false); });
     requestAnimationFrame(frame);
   }
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", init) : init();
