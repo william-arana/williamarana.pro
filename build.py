@@ -35,6 +35,16 @@ PAGES = {
     "404.html": ("/404.html", "Page not found · William Arana", "This page doesn't exist.", None),
 }
 
+# Share image (assets/og/<name>.jpg, 1200x630) per page. Anything not listed uses home.
+OG_IMAGES = {
+    "/": "home",
+    "/portfolio/": "portfolio",
+    "/gameday/": "gameday",
+    "/dreamstate/": "dreamstate",
+    "/builds/": "builds",
+    "/next/": "next",
+}
+
 # Runs before paint so a saved dark choice doesn't flash light first.
 THEME_INIT = (
     "<script>try{var d=document.documentElement;if(localStorage.getItem('wa-theme')==='dark')d.setAttribute('data-theme','dark');"
@@ -91,6 +101,7 @@ FOOTER = """<footer class="site-footer"><div class="wrap">
 
 def render(body, path, title, desc, active):
     canonical = SITE + (path if path != "/404.html" else "/")
+    og_image = f"{SITE}/assets/og/{OG_IMAGES.get(path, 'home')}.jpg"
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,8 +113,20 @@ def render(body, path, title, desc, active):
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:url" content="{canonical}">
-<meta name="theme-color" content="#F6F1E1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="William Arana's Projects">
+<meta property="og:image" content="{og_image}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{html.escape(title)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{og_image}">
+<meta name="theme-color" content="#F0E6C8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14281D" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="/assets/style.css">
 {THEME_INIT}
 <script src="/assets/site.js" defer></script>
@@ -125,7 +148,7 @@ def main():
         shutil.rmtree(OUT)
     OUT.mkdir()
     shutil.copytree(ROOT / "assets", OUT / "assets")
-    for name in ("_redirects", "_headers", "robots.txt"):
+    for name in ("_redirects", "_headers", "robots.txt", "favicon.ico", "apple-touch-icon.png", "site.webmanifest"):
         if (ROOT / name).exists():
             shutil.copy(ROOT / name, OUT / name)
     for src, (path, title, desc, active) in PAGES.items():

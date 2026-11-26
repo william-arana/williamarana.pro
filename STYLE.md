@@ -83,3 +83,10 @@ A kaleidoscope toy (`assets/fidget.js`) on every page, parked in the bottom-left
 
 Internal links don't reload the page. `assets/site.js` fetches the next page, swaps `<main>`, the title and the nav highlight, and updates the URL, so the header, settings and fidget toy keep running with no interruption. Back/forward, anchors and new-tab clicks work as normal, and any failure falls back to a regular page load. Anything a page needs to set up (like the suggestions form) goes in `waInitPage()` so it runs after each swap.
 
+
+## Icons and share images
+
+- **Mark:** the header's forest diamond (a rotated square, small corner radius). It is the favicon and the app icon. No letters in the icon.
+- **Favicon:** `assets/favicon.svg` is the diamond alone on a clear background, `--forest` in light and `#86BC98` in dark (follows the device setting). `favicon.ico` (16/32/48) is the same diamond for older browsers.
+- **App icon:** the diamond on the cream fade (`#F0E6C8` to `#FFFDF7`), square with no transparency. `apple-touch-icon.png` is 180, `assets/icons/` has 192, 512 and a maskable 512. The diamond sits inside the center safe zone.
+- **Share images:** `assets/og/<page>.jpg`, 1200x630, one per page, mapped in `OG_IMAGES` in `build.py`. Layout: wordmark top left, numbered eyebrow, big title, one line of copy, URL with an ember rule at the bottom, and a real screenshot (browser frame or phone frame) on the right. Builds uses the dark palette. New pages fall back to `home.jpg` until they get their own.
