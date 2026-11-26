@@ -27,57 +27,6 @@
     root.style.setProperty("--fidget-size", size + "px");
     canvas.width = canvas.height = Math.round(size * dpr);
     juliaRes = size < 100 ? 96 : 132;
-    buildMaps();
-  }
-
-  // ---------- Rim wrap ----------
-  // The middle 84% of the toy is flat. The outer 16% curves away like the edge of a globe:
-  // content past the flat zone is squeezed with an asin curve, so it looks like it wraps around.
-  var RIM_A = 0.84, EXT = 1.32;
-  function srcRho(rho) {
-    if (rho <= RIM_A) return rho;
-    var u = (rho - RIM_A) / (1 - RIM_A);
-    return RIM_A + (EXT - RIM_A) * (Math.asin(Math.min(1, u)) / (Math.PI / 2)) * (0.5 + 0.5 * u);
-  }
-  var sCanvas = document.createElement("canvas"), sctx = sCanvas.getContext("2d"), sMap = null, sOut = null;
-  var jMapR = null, jMapA = null, jMapE = null;
-  function buildMaps() {
-    var S = canvas.width, h = S / 2;
-    sCanvas.width = sCanvas.height = S; sOut = ctx.createImageData(S, S); sMap = new Int32Array(S * S);
-    for (var y = 0; y < S; y++) for (var x = 0; x < S; x++) {
-      var dx = (x + .5 - h) / h, dy = (y + .5 - h) / h, rho = Math.sqrt(dx * dx + dy * dy), i = y * S + x;
-      if (rho >= 1) { sMap[i] = -1; continue; }
-      var k = srcRho(rho) / EXT / (rho || 1), sx = Math.round(h - .5 + dx * k * h), sy = Math.round(h - .5 + dy * k * h);
-      sMap[i] = sx < 0 || sy < 0 || sx >= S || sy >= S ? -1 : sy * S + sx;
-    }
-    var R = juliaRes, hr = R / 2;
-    jMapR = new Float32Array(R * R); jMapA = new Float32Array(R * R); jMapE = new Float32Array(R * R);
-    for (var py = 0; py < R; py++) for (var px = 0; px < R; px++) {
-      var X = (px + .5 - hr) / hr, Y = (py + .5 - hr) / hr, rr = Math.sqrt(X * X + Y * Y), j = py * R + px;
-      if (rr >= 1) { jMapR[j] = -1; continue; }
-      jMapR[j] = srcRho(rr) * 1.55; jMapA[j] = Math.atan2(Y, X); jMapE[j] = Math.min(1, (1 - rr) * 40);
-    }
-  }
-  function remapShards() {
-    var S = canvas.width, src = sctx.getImageData(0, 0, S, S).data, d = sOut.data;
-    for (var i = 0, n = S * S; i < n; i++) {
-      var j = i * 4, k = sMap[i];
-      if (k < 0) { d[j + 3] = 0; continue; }
-      k *= 4; d[j] = src[k]; d[j + 1] = src[k + 1]; d[j + 2] = src[k + 2]; d[j + 3] = src[k + 3];
-    }
-    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.putImageData(sOut, 0, 0);
-  }
-  function drawRim() {
-    var S = canvas.width, h = S / 2, dark = document.documentElement.getAttribute("data-theme") === "dark";
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    var g = ctx.createRadialGradient(h, h, h * 0.8, h, h, h);
-    g.addColorStop(0, "rgba(10,25,18,0)"); g.addColorStop(0.55, "rgba(10,25,18," + (dark ? .14 : .1) + ")"); g.addColorStop(1, "rgba(10,25,18," + (dark ? .6 : .5) + ")");
-    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(h, h, h, 0, 6.2832); ctx.fill();
-    g = ctx.createRadialGradient(h * .7, h * .62, 2, h * .7, h * .62, h * .45);
-    g.addColorStop(0, "rgba(255,255,255," + (dark ? .14 : .24) + ")"); g.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(h, h, h, 0, 6.2832); ctx.fill();
-    ctx.strokeStyle = "rgba(255,255,255," + (dark ? .18 : .32) + ")"; ctx.lineWidth = Math.max(1, S / 140);
-    ctx.beginPath(); ctx.arc(h, h, h - ctx.lineWidth * 2, Math.PI * 1.05, Math.PI * 1.55); ctx.stroke();
   }
 
   // ---------- Position ----------
@@ -271,11 +220,10 @@
     var S = canvas.width, wedge = Math.PI / n1;
     for (var i = 0; i < zoomers.length; i++) {
       var Z = zoomers[i]; Z.r *= grow; Z.rot += Z.vr * dt;
-      if (Z.r > 150 * EXT + 30) zoomers[i] = zoomer(4 + Math.random() * 3);
+      if (Z.r > 190) zoomers[i] = zoomer(4 + Math.random() * 3);
     }
-    var main = ctx; ctx = sctx;
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, S, S);
-    ctx.translate(S / 2, S / 2); ctx.scale(S / 300 / EXT, S / 300 / EXT); ctx.rotate(spin);
+    ctx.translate(S / 2, S / 2); ctx.scale(S / 300, S / 300); ctx.rotate(spin);
     for (var k = 0; k < n1; k++) for (var m = -1; m <= 1; m += 2) {
       ctx.save(); ctx.rotate(k * 2 * wedge); ctx.scale(1, m);
       for (var j = 0; j < zoomers.length; j++) {
@@ -285,7 +233,6 @@
       }
       ctx.restore();
     }
-    ctx = main; remapShards(); drawRim();
   }
   function shape(s) {
     var z = s.z, col = "rgb(" + (s.col[0] | 0) + "," + (s.col[1] | 0) + "," + (s.col[2] | 0) + ")"; ctx.fillStyle = col; ctx.strokeStyle = col; ctx.lineWidth = 5; ctx.beginPath();
@@ -300,9 +247,8 @@
     spin += (reduce ? 0 : 0.00018) * dt;
     t1 = Math.min(1, t1 + dt / 950);
     var S = canvas.width, ss = mix(cur, nxt, easeIO(t1)), wedge = Math.PI / n1;
-    var main = ctx; ctx = sctx;
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, S, S);
-    ctx.translate(S / 2, S / 2); ctx.scale(S / 300 / EXT, S / 300 / EXT); ctx.rotate(spin);
+    ctx.translate(S / 2, S / 2); ctx.scale(S / 300, S / 300); ctx.rotate(spin);
     for (var k = 0; k < n1; k++) for (var m = -1; m <= 1; m += 2) {
       ctx.save(); ctx.rotate(k * 2 * wedge); ctx.scale(1, m);
       for (var i = 0; i < ss.length; i++) {
@@ -311,7 +257,6 @@
       }
       ctx.restore();
     }
-    ctx = main; remapShards(); drawRim();
   }
 
   // ---------- Version 2: Julia mirror ----------
@@ -330,36 +275,15 @@
       for (var c = 0; c < 3; c++) lut[i * 3 + c] = A[c] + (B[c] - A[c]) * u;
     }
   }
-  var aTheta = 1.2, aJump = 0, aBlend = 0, aTarget = 0, lastC = { r: -0.7, i: 0.27 };
+  var aTheta = 1.2, aBlend = 0, aTarget = 0, zoomPhase = 0, lastC = { r: -0.7, i: 0.27 };
   // Trace just outside the edge of the Mandelbrot set's main cardioid: every point there gives a rich spiral Julia set.
   function pathC(th) { var k = 1.02 + 0.015 * Math.sin(th * 3); return { r: k * (0.5 * Math.cos(th) - 0.25 * Math.cos(2 * th)), i: k * (0.5 * Math.sin(th) - 0.25 * Math.sin(2 * th)) }; }
   function juliaClick() {
-    if (state.auto) { aJump += 0.6; fold = pick([4, 6, 8]); return; }
+    if (state.auto) { aTheta += 0.6; fold = pick([4, 6, 8]); return; }
     var e = easeIO(jt);
     jFrom = { r: jFrom.r + (jTo.r - jFrom.r) * e, i: jFrom.i + (jTo.i - jFrom.i) * e };
     var s = pick(seeds); while (Math.abs(s[0] - jTo.r) < 1e-6) s = pick(seeds);
     jTo = { r: s[0], i: s[1] }; jt = 0; fold = pick([4, 6, 8]);
-  }
-  // Auto mode dive: zoom nonstop into the center of the kaleidoscope. Each loop zooms in 3.2x;
-  // over the last stretch the next loop's opening view blends in underneath, and since the
-  // fractal itself keeps morphing as c travels, the hand-off reads as one continuous dive.
-  var dv = { t: 0 }, DIVE_RATE = Math.LN2 / 5000, LOOP = Math.log(3.2), BLEND = 0.3;
-  var img2 = null;
-  function renderLayer(out, cr, ci, zoom, phi, cx, cy, rot) {
-    var R = juliaRes, d = out.data, wedge = Math.PI / fold, two = 2 * wedge, MAX = 64, LOG2 = Math.log(2);
-    var cphi = Math.cos(phi) / zoom, sphi = Math.sin(phi) / zoom;
-    for (var j = 0, n = R * R; j < n; j++) {
-      var q = j * 4, r = jMapR[j];
-      if (r < 0) { d[q + 3] = 0; continue; }
-      var ang = jMapA[j] + rot; ang = ((ang % two) + two) % two; if (ang > wedge) ang = two - ang;
-      var fr = r * Math.cos(ang), fi = r * Math.sin(ang);
-      var zr = cx + fr * cphi - fi * sphi, zi = cy + fr * sphi + fi * cphi, it = 0, m2 = 0;
-      for (; it < MAX; it++) { var t = zr * zr - zi * zi + cr; zi = 2 * zr * zi + ci; zr = t; m2 = zr * zr + zi * zi; if (m2 > 16) break; }
-      if (it >= MAX) { d[q + 3] = 0; continue; }
-      var mu = it + 1 - Math.log(Math.log(Math.sqrt(m2))) / LOG2, idx = (Math.floor(mu * 9) % 256 + 256) % 256 * 3;
-      d[q] = lut[idx]; d[q + 1] = lut[idx + 1]; d[q + 2] = lut[idx + 2];
-      d[q + 3] = 255 * Math.min(1, mu / 3) * jMapE[j];
-    }
   }
   function drawJulia(dt) {
     phase += (reduce ? 0 : 0.00035) * dt;
@@ -367,39 +291,34 @@
     var e = easeIO(jt);
     var cr = jFrom.r + (jTo.r - jFrom.r) * e + 0.012 * Math.cos(phase * 1.7);
     var ci = jFrom.i + (jTo.i - jFrom.i) * e + 0.012 * Math.sin(phase * 1.3);
-    aBlend += (aTarget - aBlend) * Math.min(1, dt / 900);
-    if (state.auto) aTheta += (reduce ? 0.00002 : 0.00005) * dt;
-    if (aJump > 0.0005) { var step = aJump * Math.min(1, dt / 500); aTheta += step; aJump -= step; }
-    var b = aBlend > 0.001 ? easeIO(Math.min(1, aBlend)) : 0;
-    if (b) { var P = pathC(aTheta); cr = cr + (P.r - cr) * b; ci = ci + (P.i - ci) * b; }
+    aBlend += (aTarget - aBlend) * Math.min(1, dt / 700);
+    if (state.auto) { aTheta += (reduce ? 0.00003 : 0.00011) * dt; zoomPhase += dt * 0.00025; }
+    var zf = 1;
+    if (aBlend > 0.001) {
+      var P = pathC(aTheta), b = easeIO(Math.min(1, aBlend));
+      cr = cr + (P.r - cr) * b; ci = ci + (P.i - ci) * b;
+      zf = 1 + 0.9 * b * (0.5 - 0.5 * Math.cos(zoomPhase));
+    }
     lastC = { r: cr, i: ci };
     var R = juliaRes;
-    if (buf.width !== R) { buf.width = buf.height = R; img = bctx.createImageData(R, R); img2 = bctx.createImageData(R, R); }
-    var rot = phase * 0.6;
-    if (!b) renderLayer(img, cr, ci, 1, 0, 0, 0, rot);
-    else {
-      if (state.auto) dv.t += (reduce ? 0.3 : 1) * DIVE_RATE * dt / LOOP;
-      if (dv.t >= 1) dv.t -= 1;
-      var zoomAt = function (t) { return 1 + (Math.exp(t * LOOP) - 1) * b; };
-      renderLayer(img, cr, ci, zoomAt(dv.t), 0, 0, 0, rot);
-      var w = (dv.t - (1 - BLEND)) / BLEND;
-      if (w > 0) {
-        w = w * w * (3 - 2 * w);
-        renderLayer(img2, cr, ci, Math.max(0.5, zoomAt(dv.t - 1)), 0, 0, 0, rot);
-        var d1 = img.data, d2 = img2.data;
-        for (var q = 0, n = R * R * 4; q < n; q += 4) {
-          var a1 = d1[q + 3] * (1 - w), a2 = d2[q + 3] * w, at = a1 + a2;
-          if (at <= 0) { d1[q + 3] = 0; continue; }
-          d1[q] = (d1[q] * a1 + d2[q] * a2) / at; d1[q + 1] = (d1[q + 1] * a1 + d2[q + 1] * a2) / at; d1[q + 2] = (d1[q + 2] * a1 + d2[q + 2] * a2) / at; d1[q + 3] = at;
-        }
-      }
+    if (buf.width !== R) { buf.width = buf.height = R; img = bctx.createImageData(R, R); }
+    var d = img.data, half = R / 2, sc = 1.55 / half, inv = 1 / zf, wedge = Math.PI / fold, two = 2 * wedge, MAX = 48, LOG2 = Math.log(2), rot = phase * 0.6;
+    for (var py = 0; py < R; py++) for (var px = 0; px < R; px++) {
+      var X = (px - half) * sc, Y = (py - half) * sc, j = (py * R + px) * 4, r = Math.sqrt(X * X + Y * Y);
+      if (r > 1.55) { d[j + 3] = 0; continue; }
+      var ang = Math.atan2(Y, X) + rot; ang = ((ang % two) + two) % two; if (ang > wedge) ang = two - ang;
+      var zr = r * inv * Math.cos(ang), zi = r * inv * Math.sin(ang), it = 0, m2 = 0;
+      for (; it < MAX; it++) { var t = zr * zr - zi * zi + cr; zi = 2 * zr * zi + ci; zr = t; m2 = zr * zr + zi * zi; if (m2 > 16) break; }
+      if (it >= MAX) { d[j + 3] = 0; continue; }
+      var mu = it + 1 - Math.log(Math.log(Math.sqrt(m2))) / LOG2, idx = (Math.floor(mu * 9) % 256 + 256) % 256 * 3;
+      d[j] = lut[idx]; d[j + 1] = lut[idx + 1]; d[j + 2] = lut[idx + 2];
+      d[j + 3] = 255 * Math.min(1, mu / 3) * Math.min(1, (1.55 - r) * 18);
     }
     bctx.putImageData(img, 0, 0);
     var S = canvas.width;
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, S, S);
     ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
     ctx.drawImage(buf, 0, 0, S, S);
-    drawRim();
   }
 
   function setAuto(v) {
