@@ -82,3 +82,7 @@ A kaleidoscope toy (`assets/fidget.js`) on every page, parked in the bottom-left
 ## Page changes
 
 Internal links don't reload the page. `assets/site.js` fetches the next page, swaps `<main>`, the title and the nav highlight, and updates the URL, so the header, settings and fidget toy keep running with no interruption. Back/forward, anchors and new-tab clicks work as normal, and any failure falls back to a regular page load. Anything a page needs to set up (like the suggestions form) goes in `waInitPage()` so it runs after each swap.
+
+### Rim wrap and dive
+
+Both toy versions use a rim wrap: the middle 84% of the circle is flat and the outer 16% curves away like the edge of a globe (content squeezed with an asin curve), with soft dark shading at the edge and a small highlight at the top left. In auto mode, Julia mirror dives nonstop into the center (3.2x per loop, about 8 seconds), blending each loop's end into the next loop's start while the fractal keeps morphing.
