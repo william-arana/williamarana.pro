@@ -9,6 +9,15 @@
       r.checked = r.value === cur;
       r.addEventListener("change", function () { if (r.checked) { apply(r.value); save(r.value); } });
     });
+    var pri = root.getAttribute("data-primary") === "ember" ? "ember" : "forest";
+    document.querySelectorAll('input[name="site-primary"]').forEach(function (r) {
+      r.checked = r.value === pri;
+      r.addEventListener("change", function () {
+        if (!r.checked) return;
+        if (r.value === "ember") root.setAttribute("data-primary", "ember"); else root.removeAttribute("data-primary");
+        try { localStorage.setItem("wa-primary", r.value); } catch (e) { /* storage blocked */ }
+      });
+    });
     var cog = document.getElementById("settings-cog"), panel = document.getElementById("settings-panel");
     if (!cog || !panel) return;
     function open() { panel.hidden = false; cog.setAttribute("aria-expanded", "true"); }

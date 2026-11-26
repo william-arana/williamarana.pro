@@ -7,7 +7,7 @@
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked */ } }
-  var state = Object.assign({ style: "julia", gravity: false, wander: false, on: true, auto: true, x: null, y: null }, load());
+  var state = Object.assign({ style: "julia", gravity: true, wander: false, on: true, auto: true, x: null, y: null }, load());
   if (state.style !== "shards") state.style = "julia";
 
   var easeIO = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
@@ -158,10 +158,13 @@
   function hex(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
   function readColors() {
     var dark = document.documentElement.getAttribute("data-theme") === "dark";
-    colors = dark ? ["#86BC98", "#B5DCC1", "#E2895A", "#9DBB8A", "#E9EFE7"] : ["#2B5140", "#6F8F5E", "#B5481A", "#1F3D30", "#97B486"];
+    var ember = document.documentElement.getAttribute("data-primary") === "ember";
+    colors = ember
+      ? (dark ? ["#E2895A", "#F0B08A", "#86BC98", "#C96A3A", "#F5D3B8"] : ["#B5481A", "#D9844F", "#2B5140", "#8E3712", "#E8B48A"])
+      : (dark ? ["#86BC98", "#B5DCC1", "#E2895A", "#9DBB8A", "#E9EFE7"] : ["#2B5140", "#6F8F5E", "#B5481A", "#1F3D30", "#97B486"]);
     rgb = colors.map(hex);
     [cur, nxt, zoomers].forEach(function (P) { if (P) P.forEach(function (x) { x.col = rgb[x.c].slice(); }); });
-    buildLut(dark);
+    buildLut(dark, ember);
   }
 
   // ---------- Version 1: Shards ----------
@@ -260,8 +263,10 @@
   var seeds = [[-0.7, 0.27], [0.285, 0.01], [-0.8, 0.156], [-0.4, 0.6], [0.355, 0.355], [-0.54, 0.54], [-0.123, 0.745], [-0.75, 0.11]];
   var jFrom = { r: -0.7, i: 0.27 }, jTo = { r: -0.7, i: 0.27 }, jt = 1, phase = 0, fold = 6;
   var juliaRes = 132, buf = document.createElement("canvas"), bctx = buf.getContext("2d"), img = null, lut = null;
-  function buildLut(dark) {
-    var stops = dark
+  function buildLut(dark, ember) {
+    var stops = ember ? (dark
+      ? [[24, 14, 8], [90, 40, 18], [201, 106, 58], [240, 176, 138], [134, 188, 152], [245, 211, 184], [90, 40, 18]]
+      : [[110, 40, 12], [181, 72, 26], [217, 132, 79], [240, 200, 150], [111, 143, 94], [43, 81, 64], [110, 40, 12]]) : dark
       ? [[12, 22, 17], [26, 60, 42], [61, 120, 80], [134, 188, 152], [226, 137, 90], [181, 220, 193], [26, 60, 42]]
       : [[31, 61, 48], [43, 81, 64], [111, 143, 94], [181, 205, 160], [240, 200, 140], [181, 72, 26], [31, 61, 48]];
     lut = new Uint8ClampedArray(256 * 3);
@@ -353,7 +358,7 @@
     if ((state.gravity || state.wander) && state.x != null) { pos.x = state.x; pos.y = state.y; clamp(); place(); } else setHome(false);
     root.classList.toggle("is-free", !!(state.gravity || state.wander));
     applyOn(); buildSettings();
-    new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-primary"] });
     window.addEventListener("resize", function () { measure(); if (state.gravity || state.wander) { clamp(); place(); } else setHome(false); });
     requestAnimationFrame(frame);
   }

@@ -38,6 +38,10 @@
   color-scheme: dark;
 }
 
+/* Primary color option: Ember swaps the orange in as the main accent, with forest as the small accent */
+[data-primary="ember"] { --forest: #B5481A; --forest-deep: #8E3712; --moss: #A0602F; --ember: #2B5140; --on-forest: #FFFDF7; --glow: rgba(181, 72, 26, .10); }
+[data-primary="ember"][data-theme="dark"] { --forest: #E2895A; --forest-deep: #F0B08A; --moss: #D9A27A; --ember: #86BC98; --on-forest: #0C1611; }
+
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; background: var(--bg); }
 body {
@@ -317,3 +321,7 @@ a.phone:hover { transform: translateY(-3px); }
 /* Page swaps: a quiet hint while the next page loads */
 html.is-loading main { opacity: .55; transition: opacity .15s .1s; }
 main:focus { outline: none; }
+.sw { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; border: 1px solid rgba(0,0,0,.15); }
+.sw-forest { background: #2B5140; }
+.sw-ember { background: #B5481A; }
+.seg + .set-sub { margin-top: 12px; }

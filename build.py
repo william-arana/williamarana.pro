@@ -37,8 +37,8 @@ PAGES = {
 
 # Runs before paint so a saved dark choice doesn't flash light first.
 THEME_INIT = (
-    "<script>try{if(localStorage.getItem('wa-theme')==='dark')"
-    "document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>"
+    "<script>try{var d=document.documentElement;if(localStorage.getItem('wa-theme')==='dark')d.setAttribute('data-theme','dark');"
+    "if(localStorage.getItem('wa-primary')==='ember')d.setAttribute('data-primary','ember')}catch(e){}</script>"
 )
 
 
@@ -59,7 +59,10 @@ def header(active):
         '    <p class="settings-title">Settings</p>\n'
         '    <fieldset><legend>Appearance</legend>\n'
         '      <div class="seg"><label><input type="radio" name="site-theme" value="light"> Light</label>'
-        '<label><input type="radio" name="site-theme" value="dark"> Dark</label></div></fieldset>\n'
+        '<label><input type="radio" name="site-theme" value="dark"> Dark</label></div>\n'
+        '      <p class="set-sub">Primary color</p>\n'
+        '      <div class="seg"><label><input type="radio" name="site-primary" value="forest"><i class="sw sw-forest"></i> Forest</label>'
+        '<label><input type="radio" name="site-primary" value="ember"><i class="sw sw-ember"></i> Ember</label></div></fieldset>\n'
         '    <fieldset><legend>Fidget toy</legend>\n'
         '      <label class="set-row"><input type="checkbox" name="fidget-on"> Show the toy</label>\n'
         '      <p class="set-sub">Version</p>\n'
